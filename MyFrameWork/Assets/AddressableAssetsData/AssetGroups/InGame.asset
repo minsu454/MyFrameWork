@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: InGame
+  m_EditorClassIdentifier: 
+  m_GroupName: InGame
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e80f52a30b3cc6c438d666ed151b9c71
+  m_SerializeEntries:
+  - m_GUID: d22e65d5374c9e54dab06c9a1ea11e50
+    m_Address: UI/InGame
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c0abea0322551e4fb322615dd2711a4
+    m_Address: Scene/InGame
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64b53ee16f22d9a4fb1eacbf4f85aef0
+    m_Address: Pool/InGame
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74e1c47bfd0ebe14eaa770aa9ef6fd3c
+    m_Address: Pool/InGame
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPool
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e1d6e723fcc218049a2fc889abba51ad, type: 2}
+    - {fileID: 11400000, guid: b6eac1af5bbfe1745a6d7a4df591b5d9, type: 2}
