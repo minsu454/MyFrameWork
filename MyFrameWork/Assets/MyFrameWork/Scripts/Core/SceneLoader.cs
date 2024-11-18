@@ -75,7 +75,7 @@ namespace Common.SceneEx
         /// </summary>
         private static async UniTask LoadScene(Scene scene)
         {
-            GameObject go = await AddressableAssets.InstantiateAsync(AdressablePath.ScenePath(scene.name));
+            GameObject go = await AddressableAssets.InstantiateAsync(AddressablePath.ScenePath(scene.name));
 
             if (!go.TryGetComponent(out ISceneDynamicCreatable baseScene))
             {

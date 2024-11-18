@@ -1,14 +1,9 @@
 using Common.Assets;
 using Common.Path;
-using Common.SceneEx;
+using Common.Pool;
 using Cysharp.Threading.Tasks;
-using ObjectPool;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public abstract class BaseScene<T> : MonoBehaviour, IAddressable, ISceneDynamicCreatable where T : BaseScene<T>
 {
@@ -39,7 +34,7 @@ public abstract class BaseScene<T> : MonoBehaviour, IAddressable, ISceneDynamicC
 
     public async UniTask Pooling(string sceneName)
     {
-        ObjectPoolSO objectPoolSO = await AddressableAssets.LoadDataAsync<ObjectPoolSO>(AdressablePath.ObjectPoolSOPath(sceneName));
+        ObjectPoolSO objectPoolSO = await AddressableAssets.LoadDataAsync<ObjectPoolSO>(AddressablePath.ObjectPoolSOPath(sceneName));
 
         foreach (var item in objectPoolSO.poolDataList)
         {

@@ -8,8 +8,10 @@ public sealed class Managers : MonoBehaviour
     private static Managers instance;
 
     public static UIManager UI { get { return instance.uiManager; } }
+    public static SoundManager Sound { get { return instance.soundManager; } }
 
     private UIManager uiManager;
+    private SoundManager soundManager;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
@@ -20,6 +22,7 @@ public sealed class Managers : MonoBehaviour
         DontDestroyOnLoad(go);
 
         instance.uiManager = CreateManager<UIManager>(go.transform);
+        instance.soundManager = CreateManager<SoundManager>(go.transform);
 
         SceneLoader.Init();
     }

@@ -23,7 +23,7 @@ public sealed class UIManager : MonoBehaviour, IInit
 
     private async UniTask CreateSceneUI(string name)
     {
-        GameObject prefab = await AddressableAssets.InstantiateAsync(AdressablePath.UIPath(name));
+        GameObject prefab = await AddressableAssets.InstantiateAsync(AddressablePath.UIPath(name));
 
         if (!prefab.TryGetComponent(out BaseSceneUI sceneUI))
         {
@@ -36,7 +36,7 @@ public sealed class UIManager : MonoBehaviour, IInit
 
     public async UniTask CreatePopup<T>(PopupOption option = null) where T : BasePopupUI
     {
-        GameObject prefab = await AddressableAssets.InstantiateAsync(AdressablePath.UIPath(typeof(T).Name));
+        GameObject prefab = await AddressableAssets.InstantiateAsync(AddressablePath.UIPath(typeof(T).Name));
 
         if (!prefab.TryGetComponent(out T popupUI))
         {

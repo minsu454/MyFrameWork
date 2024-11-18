@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ObjectPool { 
+namespace Common.Pool
+{ 
     public class ObjectPoolContainer : MonoBehaviour
     {
         private static ObjectPoolContainer instance;
@@ -35,7 +36,7 @@ namespace ObjectPool {
                 return;
             }
 
-            GameObject go = await AddressableAssets.LoadDataAsync<GameObject>(AdressablePath.ObjectPoolPath(sceneName, poolName));
+            GameObject go = await AddressableAssets.LoadDataAsync<GameObject>(AddressablePath.ObjectPoolPath(sceneName, poolName));
 
             ObjectPool pool;
             pool = new ObjectPool(poolName, go, poolTr, preloadCount);
