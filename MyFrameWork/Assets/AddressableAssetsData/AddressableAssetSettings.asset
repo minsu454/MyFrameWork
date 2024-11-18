@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 8203b8a02bb0a0b448d0d8e957218cc7
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 2fce7b21cfbf52c3aafe12849ba569b7
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -94,6 +94,7 @@ MonoBehaviour:
     - Scene
     - ObjectPoolSO
     - ObjectPool
+    - Sound
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 75d6477816262664a92e6e72aacfd632, type: 2}

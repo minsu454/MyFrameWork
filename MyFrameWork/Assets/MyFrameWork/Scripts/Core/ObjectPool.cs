@@ -137,7 +137,7 @@ namespace Common.Pool
                 return null;
             }
 
-            //newGo.GetComponent<IObjectPoolable>().ReturnEvent += ReturnObject;
+            newGo.GetComponent<IObjectPoolable>().ReturnEvent += ReturnObject;
 
             return component;
         }
