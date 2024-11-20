@@ -36,6 +36,12 @@ public abstract class BaseScene<T> : MonoBehaviour, IAddressable, ISceneDynamicC
     {
         ObjectPoolSO objectPoolSO = await AddressableAssets.LoadDataAsync<ObjectPoolSO>(AddressablePath.ObjectPoolSOPath(sceneName));
 
+        if (objectPoolSO == null)
+        {
+            Debug.LogWarning($"Addressable is Not Found ObjectPoolSO : {sceneName}");
+            return;
+        }
+
         foreach (var item in objectPoolSO.poolDataList)
         {
             await ObjectPoolContainer.Instance.CreateObjectPool(sceneName, item.Name, item.Count);

@@ -30,9 +30,15 @@ namespace Common.Assets
         /// </summary>
         public static async UniTask<T> LoadDataAsync<T>(string path) where T : class
         {
-            T t = await Addressables.LoadAssetAsync<T>(path);
-            
-            return t;
+            try
+            {
+                T t = await Addressables.LoadAssetAsync<T>(path);
+                return t;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -40,17 +46,24 @@ namespace Common.Assets
         /// </summary>
         public static async UniTask<GameObject> InstantiateAsync(string path)
         {
-            GameObject go = await Addressables.InstantiateAsync(path);
-
-            if (!go.TryGetComponent<IAddressable>(out var addressable))
+            try
             {
-                Debug.LogError($"GameObject Is Not IAddressable Inheritance : {path}");
+                GameObject go = await Addressables.InstantiateAsync(path);
+
+                if (!go.TryGetComponent<IAddressable>(out var addressable))
+                {
+                    Debug.LogError($"GameObject Is Not IAddressable Inheritance : {path}");
+                    return null;
+                }
+
+                addressable.ReleaseEvent += Release;
+
+                return go;
+            }
+            catch
+            {
                 return null;
             }
-
-            addressable.ReleaseEvent += Release;
-
-            return go;
         }
 
         /// <summary>
@@ -58,16 +71,23 @@ namespace Common.Assets
         /// </summary>
         public static async UniTask<GameObject> InstantiateAsync(string path, Transform parent)
         {
-            GameObject go = await Addressables.InstantiateAsync(path, parent);
-            if (!go.TryGetComponent<IAddressable>(out var addressable))
+            try
             {
-                Debug.LogError($"GameObject Is Not IAddressable Inheritance : {path}");
+                GameObject go = await Addressables.InstantiateAsync(path, parent);
+                if (!go.TryGetComponent<IAddressable>(out var addressable))
+                {
+                    Debug.LogError($"GameObject Is Not IAddressable Inheritance : {path}");
+                    return null;
+                }
+
+                addressable.ReleaseEvent += Release;
+
+                return go;
+            }
+            catch
+            {
                 return null;
             }
-
-            addressable.ReleaseEvent += Release;
-
-            return go;
         }
 
         /// <summary>
@@ -75,17 +95,24 @@ namespace Common.Assets
         /// </summary>
         public static async UniTask<GameObject> InstantiateAsync(string path, Vector3 pos, Quaternion rot, Transform parent = null)
         {
-            GameObject go = await Addressables.InstantiateAsync(path, pos, rot, parent);
-
-            if (!go.TryGetComponent<IAddressable>(out var addressable))
+            try
             {
-                Debug.LogError($"GameObject Is Not IAddressable Inheritance : {path}");
+                GameObject go = await Addressables.InstantiateAsync(path, pos, rot, parent);
+
+                if (!go.TryGetComponent<IAddressable>(out var addressable))
+                {
+                    Debug.LogError($"GameObject Is Not IAddressable Inheritance : {path}");
+                    return null;
+                }
+
+                addressable.ReleaseEvent += Release;
+
+                return go;
+            }
+            catch
+            {
                 return null;
             }
-
-            addressable.ReleaseEvent += Release;
-
-            return go;
         }
 
         /// <summary>

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Common.Pool
 {
+    /// <summary>
+    /// GameObject용 ObjectPool
+    /// </summary>
     public class ObjectPool
     {
         public readonly string poolName;                                            //이름
@@ -85,6 +88,9 @@ namespace Common.Pool
         }
     }
 
+    /// <summary>
+    /// GetCompnent 줄이기용 ObjectPool
+    /// </summary>
     public class ObjectPool<T> where T : Component, IObjectPoolable<T>
     {
         public readonly string poolName;                                            //이름
@@ -137,7 +143,7 @@ namespace Common.Pool
                 return null;
             }
 
-            newGo.GetComponent<IObjectPoolable>().ReturnEvent += ReturnObject;
+            newGo.GetComponent<IObjectPoolable<T>>().ReturnEvent += ReturnObject;
 
             return component;
         }

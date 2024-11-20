@@ -15,11 +15,23 @@ MonoBehaviour:
   m_GroupName: Sound
   m_Data:
     m_SerializedData: []
-  m_GUID: f2e08aec7fb61b94e8bfe0ab824b79c1
-  m_SerializeEntries: []
+  m_GUID: 78d2c14f36e774a47ac824d9b37e98da
+  m_SerializeEntries:
+  - m_GUID: 73d0e81dca2a68b40824255b9ae13ff1
+    m_Address: Sound/Title
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3edb6f439900884296b6f4342182b33
+    m_Address: Sound/InGame
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: aa547c56e54bcb6439ab2c1f16c78436, type: 2}
-    - {fileID: 11400000, guid: 8f3b58843cc7d9942975f09865b49a00, type: 2}
+    - {fileID: 11400000, guid: e627c74e84e5a6a4fa90198cf1d47066, type: 2}
+    - {fileID: 11400000, guid: f0d132451537f7940b868cf219e699a2, type: 2}

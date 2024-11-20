@@ -77,6 +77,12 @@ namespace Common.SceneEx
         {
             GameObject go = await AddressableAssets.InstantiateAsync(AddressablePath.ScenePath(scene.name));
 
+            if (go == null)
+            {
+                Debug.LogWarning($"Addressable is Not Found GameObject : {scene.name}");
+                return;
+            }
+
             if (!go.TryGetComponent(out ISceneDynamicCreatable baseScene))
             {
                 Debug.LogError($"GameObject Is Not BaseScene Inheritance : {go}");

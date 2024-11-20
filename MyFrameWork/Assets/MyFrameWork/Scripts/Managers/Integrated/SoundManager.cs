@@ -1,4 +1,5 @@
 using Common.Assets;
+using Common.EnumExtensions;
 using Common.Path;
 using Common.Pool;
 using Common.SceneEx;
@@ -32,6 +33,12 @@ public class SoundManager : MonoBehaviour, IInit
     private async UniTask OnSceneLoaded(Scene scene)
     {
         AudioClip clip = await AddressableAssets.LoadDataAsync<AudioClip>(AddressablePath.BGMPath(scene.name));
+
+        if (clip == null)
+        {
+            Debug.LogWarning($"Addressable is Not Found AudioClip : {scene.name}");
+            return;
+        }
 
         bgmSource.clip = clip;
     }
@@ -111,6 +118,6 @@ public class SoundManager : MonoBehaviour, IInit
 
     public void SetVolume(SoundType type, float volume)
     {
-        audioMixer.SetFloat(type.ToString(), Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat(type.EnumToString(), Mathf.Log10(volume) * 20);
     }
 }

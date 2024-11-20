@@ -38,6 +38,12 @@ namespace Common.Pool
 
             GameObject go = await AddressableAssets.LoadDataAsync<GameObject>(AddressablePath.ObjectPoolPath(sceneName, poolName));
 
+            if (go == null)
+            {
+                Debug.LogError($"Addressable is Not Found GameObject : {poolName}");
+                return;
+            }
+
             ObjectPool pool;
             pool = new ObjectPool(poolName, go, poolTr, preloadCount);
 

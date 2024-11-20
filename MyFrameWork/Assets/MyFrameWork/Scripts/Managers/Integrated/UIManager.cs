@@ -8,22 +8,34 @@ using UnityEngine.SceneManagement;
 
 public sealed class UIManager : MonoBehaviour, IInit
 {
-    private readonly List<BasePopupUI> showList = new List<BasePopupUI>();
+    private readonly List<BasePopupUI> showList = new List<BasePopupUI>();  //지금 켜져있는 팝업들 모음 List
 
     public void Init()
     {
         SceneLoader.Add(LoadPriorityType.UI, OnSceneLoaded);
     }
 
+    /// <summary>
+    /// 씬 로드 시 호출 될 이벤트 함수
+    /// </summary>
     private async UniTask OnSceneLoaded(Scene scene)
     {
         Clear();
         await CreateSceneUI(scene.name);
     }
 
+    /// <summary>
+    /// 씬 로드 시 해당 Scene에 메인 UI 배치 함수
+    /// </summary>
     private async UniTask CreateSceneUI(string name)
     {
         GameObject prefab = await AddressableAssets.InstantiateAsync(AddressablePath.UIPath(name));
+
+        if (prefab == null)
+        {
+            Debug.LogError($"Addressable is Not Found GameObject : {name}");
+            return;
+        }
 
         if (!prefab.TryGetComponent(out BaseSceneUI sceneUI))
         {
@@ -34,9 +46,18 @@ public sealed class UIManager : MonoBehaviour, IInit
         sceneUI.Init();
     }
 
+    /// <summary>
+    /// 씬 로드 시 해당 Scene에 메인 UI 배치 함수
+    /// </summary>
     public async UniTask CreatePopup<T>(PopupOption option = null) where T : BasePopupUI
     {
         GameObject prefab = await AddressableAssets.InstantiateAsync(AddressablePath.UIPath(typeof(T).Name));
+
+        if (prefab == null)
+        {
+            Debug.LogError($"Addressable is Not Found GameObject : {name}");
+            return;
+        }
 
         if (!prefab.TryGetComponent(out T popupUI))
         {

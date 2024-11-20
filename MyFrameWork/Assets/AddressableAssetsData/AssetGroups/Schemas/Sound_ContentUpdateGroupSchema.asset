@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
   m_Name: Sound_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 99114401dcf93ec4896d087ccc4b68dd, type: 2}
+  m_Group: {fileID: 11400000, guid: fac483e1e552bc943a96a2729b99c39f, type: 2}
   m_StaticContent: 0
