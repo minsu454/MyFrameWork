@@ -1,4 +1,5 @@
 using Common.SceneEx;
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -25,9 +26,9 @@ public class Loading : BaseSceneUI
         {
             yield return null;
 
-            if (op.progress < 0.9f)
+            if (progressBar.fillAmount < 0.9f && op.progress == 0.9f)
             {
-                progressBar.fillAmount = op.progress;
+                progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, 1f, Time.deltaTime);
             }
             else
             {
