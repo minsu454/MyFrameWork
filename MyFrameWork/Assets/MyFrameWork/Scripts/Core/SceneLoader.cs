@@ -12,7 +12,7 @@ namespace Common.SceneEx
     public static class SceneLoader
     {
         public readonly static SortedList<LoadPriorityType, Func<Scene, UniTask>> completedList = new SortedList<LoadPriorityType, Func<Scene, UniTask>>(); //씬로드 되었을 때 호출순서 정렬 list
-        
+
         /// <summary>
         /// 초기화 함수
         /// </summary>
@@ -22,6 +22,8 @@ namespace Common.SceneEx
 
             SceneManager.sceneLoaded += OnLoadCompleted;
         }
+
+        //Sound BGM, UI SceneUI
 
         /// <summary>
         /// 씬 로드 완료 시 호출 이벤트 함수

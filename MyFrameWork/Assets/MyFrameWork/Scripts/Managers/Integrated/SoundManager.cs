@@ -4,11 +4,12 @@ using Common.Path;
 using Common.Pool;
 using Common.SceneEx;
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using Scene = UnityEngine.SceneManagement.Scene;
 
-public class SoundManager : MonoBehaviour, IInit
+public sealed class SoundManager : MonoBehaviour, IInit
 {
     private ObjectPool<SoundPlayer> soundPool;
 
@@ -26,7 +27,12 @@ public class SoundManager : MonoBehaviour, IInit
 
         SceneLoader.Add(LoadPriorityType.Sound, OnSceneLoaded);
     }
-    
+
+    public void OnStart()
+    {
+        InitPlayerPrefsVolume();
+    }
+
     /// <summary>
     /// 씬 로드시 bgm깔아주는 이벤트 함수
     /// </summary>
@@ -41,6 +47,24 @@ public class SoundManager : MonoBehaviour, IInit
         }
 
         bgmSource.clip = clip;
+    }
+
+    /// <summary>
+    /// 저장된 사운드 크기로 초기화 함수
+    /// </summary>
+    private void InitPlayerPrefsVolume()
+    {
+        foreach (SoundType type in Enum.GetValues(typeof(SoundType)))
+        {
+            string name = type.EnumToString();
+            if (!GetAudioMixerGroup(name, out var group))
+            {
+                Debug.LogError($"Is Not Found Group : {name}");
+                return;
+            }
+
+            SetVolume(type, PlayerPrefs.GetFloat(name));
+        }
     }
 
     /// <summary>
@@ -106,18 +130,22 @@ public class SoundManager : MonoBehaviour, IInit
     /// <summary>
     /// 3D 플레이 함수(원근감 사운드)
     /// </summary>
-    public void SFX3DPlay(AudioClip clip)
+    public void SFX3DPlay(AudioClip clip, Transform playTr)
     {
         SoundPlayer soundPlayer = soundPool.GetObject();
         soundPlayer.SetDelay(clip.length);
-        soundPlayer.SetSound3D();
+        soundPlayer.SetSound3D(playTr);
         soundPlayer.gameObject.SetActive(true);
 
         soundPlayer.Play(clip);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void SetVolume(SoundType type, float volume)
     {
         audioMixer.SetFloat(type.EnumToString(), Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat(type.EnumToString(), volume);
     }
 }

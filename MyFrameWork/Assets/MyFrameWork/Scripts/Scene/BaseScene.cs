@@ -32,7 +32,10 @@ public abstract class BaseScene<T> : MonoBehaviour, IAddressable, ISceneDynamicC
         await Pooling(sceneName);
     }
 
-    public async UniTask Pooling(string sceneName)
+    /// <summary>
+    /// 지금 씬에서 사용할 오브젝트 풀링해주는 함수
+    /// </summary>
+    private async UniTask Pooling(string sceneName)
     {
         ObjectPoolSO objectPoolSO = await AddressableAssets.LoadDataAsync<ObjectPoolSO>(AddressablePath.ObjectPoolSOPath(sceneName));
 
@@ -51,7 +54,7 @@ public abstract class BaseScene<T> : MonoBehaviour, IAddressable, ISceneDynamicC
     /// <summary>
     /// 씬 동적 생성 해줄 오브젝트 몰빵하는 함수
     /// </summary>
-    public abstract UniTask InitScene();
+    protected abstract UniTask InitScene();
 
     protected virtual void OnDestroy()
     {
