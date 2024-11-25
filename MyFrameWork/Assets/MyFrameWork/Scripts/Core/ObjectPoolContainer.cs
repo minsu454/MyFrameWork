@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Common.Pool
 { 
-    public class ObjectPoolContainer : MonoBehaviour
+    public sealed class ObjectPoolContainer : MonoBehaviour
     {
         private static ObjectPoolContainer instance;
         public static ObjectPoolContainer Instance

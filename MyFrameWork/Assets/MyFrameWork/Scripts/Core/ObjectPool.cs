@@ -6,7 +6,7 @@ namespace Common.Pool
     /// <summary>
     /// GameObject용 ObjectPool
     /// </summary>
-    public class ObjectPool
+    public sealed class ObjectPool
     {
         public readonly string poolName;                                            //이름
         public readonly Stack<GameObject> objectStack = new Stack<GameObject>();    //스텍
@@ -91,7 +91,7 @@ namespace Common.Pool
     /// <summary>
     /// GetCompnent 줄이기용 ObjectPool
     /// </summary>
-    public class ObjectPool<T> where T : Component, IObjectPoolable<T>
+    public sealed class ObjectPool<T> where T : Component, IObjectPoolable<T>
     {
         public readonly string poolName;                                            //이름
         public readonly Queue<T> objectQueue = new Queue<T>();                      //스텍
@@ -182,3 +182,5 @@ namespace Common.Pool
         }
     }
 }
+
+
