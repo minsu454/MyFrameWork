@@ -9,7 +9,7 @@ using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace Common.SceneEx
 {
-    public static class SceneLoader
+    public static class SceneJobLoader
     {
         public readonly static SortedList<LoadPriorityType, Func<Scene, UniTask>> completedList = new SortedList<LoadPriorityType, Func<Scene, UniTask>>(); //씬로드 되었을 때 호출순서 정렬 list
 
@@ -77,7 +77,7 @@ namespace Common.SceneEx
         /// </summary>
         private static async UniTask LoadScene(Scene scene)
         {
-            GameObject go = await AddressableAssets.InstantiateAsync(AddressablePath.ScenePath(scene.name));
+            GameObject go = await AddressableAssets.InstantiateAsync(AddressablePath.LoaderPath(scene.name));
 
             if (go == null)
             {

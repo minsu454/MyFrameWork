@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadingScene : BaseScene<InGameScene>
+public class LoadingLoader : BaseSceneLoader<LoadingLoader>
 {
     protected override async UniTask InitScene()
     {

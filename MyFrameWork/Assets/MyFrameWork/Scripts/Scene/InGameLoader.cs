@@ -4,7 +4,7 @@ using System;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
-public class InGameScene : BaseScene<InGameScene>
+public class InGameLoader : BaseSceneLoader<InGameLoader>
 {
     protected override async UniTask InitScene()
     {

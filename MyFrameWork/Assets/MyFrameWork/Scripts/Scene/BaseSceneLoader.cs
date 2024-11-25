@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
-public abstract class BaseScene<T> : MonoBehaviour, IAddressable, ISceneDynamicCreatable where T : BaseScene<T>
+public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, ISceneDynamicCreatable where T : BaseSceneLoader<T>
 {
     private static T instance;
     public static T Instance

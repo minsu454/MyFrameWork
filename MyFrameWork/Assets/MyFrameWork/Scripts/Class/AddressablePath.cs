@@ -6,9 +6,9 @@ namespace Common.Path
 {
     public static class AddressablePath
     {
-        public static string ScenePath(string name)
+        public static string LoaderPath(string name)
         {
-            return $"Scene/{name}";
+            return $"Loader/{name}";
         }
 
         public static string UIPath(string name)

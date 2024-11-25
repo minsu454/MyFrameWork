@@ -12,7 +12,7 @@ public sealed class UIManager : MonoBehaviour, IInit
 
     public void Init()
     {
-        SceneLoader.Add(LoadPriorityType.UI, OnSceneLoaded);
+        SceneJobLoader.Add(LoadPriorityType.UI, OnSceneLoaded);
     }
 
     /// <summary>

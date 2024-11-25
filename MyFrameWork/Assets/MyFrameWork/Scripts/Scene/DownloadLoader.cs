@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DownloadScene : BaseScene<InGameScene>
+public class DownloadLoader : BaseSceneLoader<DownloadLoader>
 {
     protected override async UniTask InitScene()
     {

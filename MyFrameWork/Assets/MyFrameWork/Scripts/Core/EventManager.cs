@@ -10,17 +10,17 @@ namespace Common.Event
     {
 
         //eventListener저장해주는 Dictionary
-        private static readonly Dictionary<GameEventType, List<EventListener>> eventListenerDic = new Dictionary<GameEventType, List<EventListener>>();
+        private static readonly Dictionary<GameEventType, List<EventListener>> eventListenerDict = new Dictionary<GameEventType, List<EventListener>>();
 
         /// <summary>
         /// 구독하는 함수
         /// </summary>
         public static void Subscribe(GameEventType type, EventListener listener)
         {
-            if (!eventListenerDic.TryGetValue(type, out var list))
+            if (!eventListenerDict.TryGetValue(type, out var list))
             {
                 list = new List<EventListener>();
-                eventListenerDic[type] = list;
+                eventListenerDict[type] = list;
             }
 
             list.Add(listener);
@@ -31,7 +31,7 @@ namespace Common.Event
         /// </summary>
         public static void Unsubscribe(GameEventType type, EventListener listener)
         {
-            if (!eventListenerDic.TryGetValue(type, out var list))
+            if (!eventListenerDict.TryGetValue(type, out var list))
             {
                 return;
             }
@@ -39,7 +39,7 @@ namespace Common.Event
             list.Remove(listener);
             if (list.Count == 0)
             {
-                eventListenerDic.Remove(type);
+                eventListenerDict.Remove(type);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Common.Event
         /// </summary>
         public static void Dispatch(GameEventType type, object arg)
         {
-            if (!eventListenerDic.TryGetValue(type, out var list))
+            if (!eventListenerDict.TryGetValue(type, out var list))
             {
                 return;
             }

@@ -25,7 +25,7 @@ public sealed class SoundManager : MonoBehaviour, IInit
         CreateAudioSource(SoundType.BGM.ToString());
         CreateSoundPool();
 
-        SceneLoader.Add(LoadPriorityType.Sound, OnSceneLoaded);
+        SceneJobLoader.Add(LoadPriorityType.Sound, OnSceneLoaded);
     }
 
     public void OnStart()

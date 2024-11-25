@@ -23,14 +23,14 @@ namespace Common.Pool
             }
         }
 
-        public Dictionary<string, ObjectPool> objectPoolDic = new Dictionary<string, ObjectPool>();     //오브젝트풀들 담는 Dictionary
+        public Dictionary<string, ObjectPool> objectPoolDict = new Dictionary<string, ObjectPool>();     //오브젝트풀들 담는 Dictionary
 
         /// <summary>
         /// 오브젝트풀에 오브젝트 생성해주는 함수
         /// </summary>
         public async UniTask CreateObjectPool(string sceneName, string poolName, int preloadCount, Transform poolTr = null)
         {
-            if (objectPoolDic.ContainsKey(poolName))
+            if (objectPoolDict.ContainsKey(poolName))
             {
                 Debug.LogError($"Object pool {poolName} is already exists.");
                 return;
@@ -47,7 +47,7 @@ namespace Common.Pool
             ObjectPool pool;
             pool = new ObjectPool(poolName, go, poolTr, preloadCount);
 
-            objectPoolDic.Add(poolName, pool);
+            objectPoolDict.Add(poolName, pool);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Common.Pool
                 return null;
             }
 
-            if (!objectPoolDic.TryGetValue(poolName, out ObjectPool pool))
+            if (!objectPoolDict.TryGetValue(poolName, out ObjectPool pool))
             {
                 return null;
             }
@@ -75,7 +75,7 @@ namespace Common.Pool
         {
             string poolName = obj.name;
 
-            if (!objectPoolDic.TryGetValue(poolName, out ObjectPool pool))
+            if (!objectPoolDict.TryGetValue(poolName, out ObjectPool pool))
             {
                 Debug.LogError($"Cannot found pool Name: {poolName}");
                 return;
@@ -87,7 +87,7 @@ namespace Common.Pool
 
         public void Clear()
         {
-            objectPoolDic.Clear();
+            objectPoolDict.Clear();
             instance = null;
         }
 

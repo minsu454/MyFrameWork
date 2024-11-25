@@ -1,3 +1,4 @@
+using Common.Assets;
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +10,19 @@ namespace Common.Objects
     {
         private static readonly Dictionary<string, Object> objectContainerDict = new Dictionary<string, Object>();
 
-        public static async UniTask Add()
+        public static async UniTask Add(string label)
         {
-            await UniTask.CompletedTask;
+            var list = await AddressableAssets.LoadDataWithLabelAsync(label);
+
+            foreach (var item in list)
+            {
+                objectContainerDict.Add(item.PrimaryKey, item.Data as Object);
+            }
+        }
+
+        public static void Remove()
+        {
+            objectContainerDict.Clear();
         }
 
         public static T Return<T>(string path) where T : Object

@@ -6,20 +6,20 @@ namespace Common.Yield
 {
     public static class YieldCache
     {
-        private static readonly Dictionary<float, WaitForSeconds> waitForSecondsDic = new Dictionary<float, WaitForSeconds>();
+        private static readonly Dictionary<float, WaitForSeconds> waitForSecondsDict = new Dictionary<float, WaitForSeconds>();
 
         /// <summary>
         /// new WaitForSeconds를 dictionary에 가져오는 함수(dictionary에 값이 없을 시엔 add해줌)
         /// </summary>
         public static WaitForSeconds WaitForSeconds(float delayTime)
         {
-            if (waitForSecondsDic.TryGetValue(delayTime, out WaitForSeconds wait))
+            if (waitForSecondsDict.TryGetValue(delayTime, out WaitForSeconds wait))
             {
                 return wait;
             }
 
             WaitForSeconds waitForSeconds = new WaitForSeconds(delayTime);
-            waitForSecondsDic.Add(delayTime, waitForSeconds);
+            waitForSecondsDict.Add(delayTime, waitForSeconds);
             return waitForSeconds;
         }
     }

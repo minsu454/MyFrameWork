@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Common.Assets
 {
@@ -34,6 +36,22 @@ namespace Common.Assets
             {
                 T t = await Addressables.LoadAssetAsync<T>(path);
                 return t;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 비동기로 해당 라벨에 모든 데이터 긁어오는 함수
+        /// </summary>
+        public static async UniTask<IList<IResourceLocation>> LoadDataWithLabelAsync(string Label)
+        {
+            try
+            {
+                IList<IResourceLocation> list = await Addressables.LoadResourceLocationsAsync(Label);
+                return list;
             }
             catch
             {

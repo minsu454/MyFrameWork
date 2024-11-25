@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleScene : BaseScene<InGameScene>
+public class TitleLoader : BaseSceneLoader<TitleLoader>
 {
     protected override async UniTask InitScene()
     {

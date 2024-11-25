@@ -21,19 +21,19 @@ MonoBehaviour:
     m_Address: UI/Loading
     m_ReadOnly: 0
     m_SerializedLabels:
-    - UI
+    - Loading
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0334cd8ce1919354aa99b96746c8c2e7
     m_Address: UI/Title
     m_ReadOnly: 0
     m_SerializedLabels:
-    - UI
+    - Title
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d22e65d5374c9e54dab06c9a1ea11e50
     m_Address: UI/InGame
     m_ReadOnly: 0
     m_SerializedLabels:
-    - UI
+    - InGame
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}

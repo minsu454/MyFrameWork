@@ -10,6 +10,10 @@ namespace Common.SceneEx
     public static class SceneManagerEx
     {
         private static string nextScene;    //로딩 씬 후 다음 씬 이름 저장 변수
+        public static string NextScene
+        {
+            get { return nextScene; }
+        }
 
         /// <summary>
         /// 씬 로드 함수

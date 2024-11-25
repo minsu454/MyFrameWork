@@ -21,19 +21,19 @@ MonoBehaviour:
     m_Address: Sound/Title
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Sound
+    - Title
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e3edb6f439900884296b6f4342182b33
     m_Address: Sound/InGame
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Sound
+    - InGame
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3de81ced3cfaa3a428219dea1e776c6b
     m_Address: Sound/Loading
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Sound
+    - Loading
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}

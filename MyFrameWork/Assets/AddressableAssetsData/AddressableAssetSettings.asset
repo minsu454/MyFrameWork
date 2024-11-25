@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 8203b8a02bb0a0b448d0d8e957218cc7
   m_currentHash:
     serializedVersion: 2
-    Hash: e0ce96da48e4ba967062af2c1e9236be
+    Hash: 3555900d711183529756ce5721ad57fe
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -92,11 +92,10 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - UI
-    - Scene
-    - ObjectPoolSO
-    - ObjectPool
-    - Sound
+    - Common
+    - Title
+    - InGame
+    - Loading
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 75d6477816262664a92e6e72aacfd632, type: 2}

@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scene
+  m_Name: Loader
   m_EditorClassIdentifier: 
-  m_GroupName: Scene
+  m_GroupName: Loader
   m_Data:
     m_SerializedData: []
   m_GUID: 212076920a611f44abefeb785997ae8c
   m_SerializeEntries:
   - m_GUID: 6c0abea0322551e4fb322615dd2711a4
-    m_Address: Scene/InGame
+    m_Address: Loader/InGame
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Scene
+    - InGame
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0b6708f2ab2e0b49a8e0548c9f8a94b
-    m_Address: Scene/Title
+    m_Address: Loader/Title
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Scene
+    - Title
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 296310a30bf48a24dbe800398f65d746
-    m_Address: Scene/Loading
+    m_Address: Loader/Loading
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Scene
+    - Loading
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}

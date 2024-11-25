@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4679508629112315256}
-  - component: {fileID: 1555541206365650304}
+  - component: {fileID: 2803528371827507658}
   m_Layer: 0
-  m_Name: TitleScene
+  m_Name: InGameLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1555541206365650304
+--- !u!114 &2803528371827507658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1502360253140370702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3b051762b62b07498392c38d4fea866, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f581306b5c1bf645a0fbb0879817e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

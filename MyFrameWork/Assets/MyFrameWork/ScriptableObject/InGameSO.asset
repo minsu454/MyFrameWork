@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolDataList:
   - <Name>k__BackingField: GameObject
-    <Count>k__BackingField: 10000
+    <Count>k__BackingField: 10

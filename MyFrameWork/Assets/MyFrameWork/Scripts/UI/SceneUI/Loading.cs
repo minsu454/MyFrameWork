@@ -1,3 +1,4 @@
+using Common.Objects;
 using Common.SceneEx;
 using Cysharp.Threading.Tasks;
 using System.Collections;
@@ -20,6 +21,8 @@ public class Loading : BaseSceneUI
         progressBar.fillAmount = 0.0f;
 
         AsyncOperation op = SceneManagerEx.LoadNextSceneAsync();
+        
+        yield return ObjectManager.Add(SceneManagerEx.NextScene);
 
         float timer = 0f;
         while (!op.isDone)
@@ -41,5 +44,14 @@ public class Loading : BaseSceneUI
                 }
             }
         }
+    }
+
+    private async UniTask LoadSceneProcess1()
+    {
+        progressBar.fillAmount = 0.0f;
+
+        AsyncOperation op = SceneManagerEx.LoadNextSceneAsync();
+        
+        await ObjectManager.Add(SceneManagerEx.NextScene);
     }
 }
