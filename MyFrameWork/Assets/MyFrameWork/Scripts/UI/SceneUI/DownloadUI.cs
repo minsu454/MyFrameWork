@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class DownloadUI : BaseSceneUI
 {
-    private void Awake()
-    {
-        Managers.Init();
-    }
-
     public void GoTitle()
     {
         SceneManagerEx.LoadingAndNextScene(SceneType.Title);

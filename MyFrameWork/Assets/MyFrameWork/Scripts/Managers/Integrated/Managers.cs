@@ -13,7 +13,8 @@ public sealed class Managers : MonoBehaviour
     private UIManager uiManager;
     private SoundManager soundManager;
 
-    public static void Init()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init()
     {
         GameObject go = new GameObject("Managers");
         instance = go.AddComponent<Managers>();
