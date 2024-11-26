@@ -1,4 +1,5 @@
 using Common.Assets;
+using Common.Objects;
 using Common.Path;
 using Common.SceneEx;
 using Cysharp.Threading.Tasks;
@@ -18,30 +19,27 @@ public sealed class UIManager : MonoBehaviour, IInit
     /// <summary>
     /// 씬 로드 시 호출 될 이벤트 함수
     /// </summary>
-    private async UniTask OnSceneLoaded(string sceneName)
+    private void OnSceneLoaded(string sceneName)
     {
         Clear();
-        await CreateSceneUI(sceneName);
+        CreateSceneUI(sceneName);
     }
 
     /// <summary>
     /// 씬 로드 시 해당 Scene에 메인 UI 배치 함수
     /// </summary>
-    private async UniTask CreateSceneUI(string name)
+    private void CreateSceneUI(string name)
     {
-        GameObject prefab = await AddressableAssets.InstantiateAsync(AddressablePath.UIPath(name));
+        GameObject prefab = ObjectManager.Return<GameObject>(AddressablePath.UIPath(name));
 
-        if (prefab == null)
-        {
-            Debug.LogError($"Addressable is Not Found GameObject : {name}");
-            return;
-        }
+        GameObject uiGo = Instantiate(prefab);
 
         if (!prefab.TryGetComponent(out BaseSceneUI sceneUI))
         {
             Debug.LogError($"GameObject Is Not BaseSceneUI Inheritance : {prefab}");
             return;
         }
+
 
         sceneUI.Init();
     }

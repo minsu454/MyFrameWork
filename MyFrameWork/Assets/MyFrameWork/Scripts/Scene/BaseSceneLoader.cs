@@ -1,11 +1,13 @@
 using Common.Assets;
+using Common.Objects;
 using Common.Path;
 using Common.Pool;
+using Common.SceneEx;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
-public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, ISceneDynamicCreatable where T : BaseSceneLoader<T>
+public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, IInit where T : BaseSceneLoader<T>
 {
     private static T instance;
     public static T Instance
@@ -18,7 +20,7 @@ public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, ISceneDy
 
     public event Action<GameObject> ReleaseEvent;
 
-    public async UniTask Init(string sceneName)
+    public void Init()
     {
         if (instance != null)
         {
@@ -28,16 +30,18 @@ public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, ISceneDy
 
         instance = this as T;
 
-        await InitScene();
-        await Pooling(sceneName);
+        InitScene();
+        Pooling();
     }
 
     /// <summary>
     /// 지금 씬에서 사용할 오브젝트 풀링해주는 함수
     /// </summary>
-    private async UniTask Pooling(string sceneName)
+    private void Pooling()
     {
-        ObjectPoolSO objectPoolSO = await AddressableAssets.LoadDataAsync<ObjectPoolSO>(AddressablePath.ObjectPoolSOPath(sceneName));
+        string sceneName = SceneManagerEx.NextScene;
+
+        ObjectPoolSO objectPoolSO = ObjectManager.Return<ObjectPoolSO>(AddressablePath.ObjectPoolSOPath(sceneName));
 
         if (objectPoolSO == null)
         {
@@ -47,14 +51,14 @@ public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, ISceneDy
 
         foreach (var item in objectPoolSO.poolDataList)
         {
-            await ObjectPoolContainer.Instance.CreateObjectPool(sceneName, item.Name, item.Count);
+            ObjectPoolContainer.Instance.CreateObjectPool(sceneName, item.Name, item.Count);
         }
     }
 
     /// <summary>
     /// 씬 동적 생성 해줄 오브젝트 몰빵하는 함수
     /// </summary>
-    protected abstract UniTask InitScene();
+    protected abstract void InitScene();
 
     protected virtual void OnDestroy()
     {

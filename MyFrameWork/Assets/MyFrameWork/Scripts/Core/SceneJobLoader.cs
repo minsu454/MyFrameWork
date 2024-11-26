@@ -1,4 +1,5 @@
 using Common.Assets;
+using Common.Objects;
 using Common.Path;
 using Common.StringEx;
 using Cysharp.Threading.Tasks;
@@ -12,7 +13,8 @@ namespace Common.SceneEx
 {
     public static class SceneJobLoader
     {
-        public readonly static SortedList<LoadPriorityType, Func<string, UniTask>> completedList = new SortedList<LoadPriorityType, Func<string, UniTask>>(); //씬로드 되었을 때 호출순서 정렬 list
+        public readonly static SortedList<LoadPriorityType, Action<string>> completedList = new SortedList<LoadPriorityType, Action<string>>(); //씬로드 되었을 때 호출순서 정렬 list
+        public static bool UseOnLoadCompleted = false;
 
         /// <summary>
         /// 초기화 함수
@@ -24,20 +26,21 @@ namespace Common.SceneEx
             SceneManager.sceneLoaded += OnLoadCompleted;
         }
 
-        //Sound BGM, UI SceneUI
-
         /// <summary>
         /// 씬 로드 완료 시 호출 이벤트 함수
         /// </summary>
-        private static async void OnLoadCompleted(Scene scene, LoadSceneMode sceneMode)
+        private static void OnLoadCompleted(Scene scene, LoadSceneMode sceneMode)
         {
+            if (!UseOnLoadCompleted)
+                return;
+
             string sceneName = scene.name.ToFirstName("_");
 
             foreach (var item in completedList)
             {
                 try
                 {
-                    await item.Value.Invoke(sceneName);
+                    item.Value.Invoke(sceneName);
                 }
                 catch (Exception e)
                 {
@@ -49,7 +52,7 @@ namespace Common.SceneEx
         /// <summary>
         /// 씬 로드 시 실행 Action 추가 함수
         /// </summary>
-        public static void Add(LoadPriorityType type, Func<string, UniTask> loadCompleted)
+        public static void Add(LoadPriorityType type, Action<string> loadCompleted)
         {
             if (completedList.ContainsKey(type))
             {
@@ -78,23 +81,25 @@ namespace Common.SceneEx
         /// <summary>
         /// 씬 로드시 메인 Manager생성 함수
         /// </summary>
-        private static async UniTask LoadScene(string sceneName)
+        private static void LoadScene(string sceneName)
         {
-            GameObject go = await AddressableAssets.InstantiateAsync(AddressablePath.LoaderPath(sceneName));
+            GameObject prefab = ObjectManager.Return<GameObject>(AddressablePath.LoaderPath(sceneName));
 
-            if (go == null)
+            if (prefab == null)
             {
                 Debug.LogWarning($"Addressable is Not Found GameObject : {sceneName}");
                 return;
             }
 
-            if (!go.TryGetComponent(out ISceneDynamicCreatable baseScene))
+            GameObject go = UnityEngine.Object.Instantiate(prefab);
+
+            if (!go.TryGetComponent(out IInit loader))
             {
                 Debug.LogError($"GameObject Is Not BaseScene Inheritance : {go}");
                 return;
             }
 
-            await baseScene.Init(sceneName);
+            loader.Init();
         }
     }
 }

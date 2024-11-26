@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class DownloadLoader : BaseSceneLoader<DownloadLoader>
 {
-    protected override async UniTask InitScene()
+    protected override void InitScene()
     {
-        await UniTask.CompletedTask;
     }
 }

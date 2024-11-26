@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Title : BaseSceneUI
+public class TitleUI : BaseSceneUI
 {
     public void Btn()
     {

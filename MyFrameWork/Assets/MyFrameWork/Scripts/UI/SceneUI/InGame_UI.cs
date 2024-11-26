@@ -1,5 +1,6 @@
 using Common.SceneEx;
-public class InGame : BaseSceneUI
+
+public class InGame_UI : BaseSceneUI
 {
     public void Btn()
     {

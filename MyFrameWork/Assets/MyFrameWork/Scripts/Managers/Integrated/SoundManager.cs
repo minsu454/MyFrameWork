@@ -1,5 +1,6 @@
 using Common.Assets;
 using Common.EnumExtensions;
+using Common.Objects;
 using Common.Path;
 using Common.Pool;
 using Common.SceneEx;
@@ -36,9 +37,9 @@ public sealed class SoundManager : MonoBehaviour, IInit
     /// <summary>
     /// 씬 로드시 bgm깔아주는 이벤트 함수
     /// </summary>
-    private async UniTask OnSceneLoaded(string sceneName)
+    private void OnSceneLoaded(string sceneName)
     {
-        AudioClip clip = await AddressableAssets.LoadDataAsync<AudioClip>(AddressablePath.BGMPath(sceneName));
+        AudioClip clip = ObjectManager.Return<AudioClip>(AddressablePath.BGMPath(sceneName));
 
         if (clip == null)
         {

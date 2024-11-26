@@ -30,6 +30,8 @@ namespace Common.SceneEx
         public static void LoadingAndNextScene(SceneType nextSceneType)
         {
             nextScene = nextSceneType.EnumToString();
+
+            SceneJobLoader.UseOnLoadCompleted = false;
             SceneManager.LoadScene("Loading_Scene");
         }
 
@@ -38,6 +40,7 @@ namespace Common.SceneEx
         /// </summary>
         public static AsyncOperation LoadNextSceneAsync()
         {
+            SceneJobLoader.UseOnLoadCompleted = true;
             AsyncOperation op = SceneManager.LoadSceneAsync(ScenePath.SceneName(nextScene));
             op.allowSceneActivation = false;
 

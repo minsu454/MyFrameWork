@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class TitleLoader : BaseSceneLoader<TitleLoader>
 {
-    protected override async UniTask InitScene()
+    protected override void InitScene()
     {
-        await UniTask.CompletedTask;
     }
 }

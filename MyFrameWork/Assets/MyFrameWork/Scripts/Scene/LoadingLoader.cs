@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class LoadingLoader : BaseSceneLoader<LoadingLoader>
 {
-    protected override async UniTask InitScene()
+    protected override void InitScene()
     {
-        await UniTask.CompletedTask;
     }
 }

@@ -1,4 +1,5 @@
 using Common.Assets;
+using Common.Objects;
 using Common.Path;
 using Cysharp.Threading.Tasks;
 using System.Collections;
@@ -28,7 +29,7 @@ namespace Common.Pool
         /// <summary>
         /// 오브젝트풀에 오브젝트 생성해주는 함수
         /// </summary>
-        public async UniTask CreateObjectPool(string sceneName, string poolName, int preloadCount, Transform poolTr = null)
+        public void CreateObjectPool(string sceneName, string poolName, int preloadCount, Transform poolTr = null)
         {
             if (objectPoolDict.ContainsKey(poolName))
             {
@@ -36,7 +37,7 @@ namespace Common.Pool
                 return;
             }
 
-            GameObject go = await AddressableAssets.LoadDataAsync<GameObject>(AddressablePath.ObjectPoolPath(sceneName, poolName));
+            GameObject go = ObjectManager.Return<GameObject>(AddressablePath.ObjectPoolPath(sceneName, poolName));
 
             if (go == null)
             {

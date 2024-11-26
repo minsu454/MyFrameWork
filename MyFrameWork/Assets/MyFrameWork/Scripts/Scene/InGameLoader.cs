@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class InGameLoader : BaseSceneLoader<InGameLoader>
 {
-    protected override async UniTask InitScene()
+    protected override void InitScene()
     {
-        await UniTask.CompletedTask;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Loading : BaseSceneUI
+public class LoadingUI : BaseSceneUI
 {
     [SerializeField] private Image progressBar;
 
