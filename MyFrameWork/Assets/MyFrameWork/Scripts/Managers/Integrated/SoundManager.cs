@@ -36,13 +36,13 @@ public sealed class SoundManager : MonoBehaviour, IInit
     /// <summary>
     /// 씬 로드시 bgm깔아주는 이벤트 함수
     /// </summary>
-    private async UniTask OnSceneLoaded(Scene scene)
+    private async UniTask OnSceneLoaded(string sceneName)
     {
-        AudioClip clip = await AddressableAssets.LoadDataAsync<AudioClip>(AddressablePath.BGMPath(scene.name));
+        AudioClip clip = await AddressableAssets.LoadDataAsync<AudioClip>(AddressablePath.BGMPath(sceneName));
 
         if (clip == null)
         {
-            Debug.LogWarning($"Addressable is Not Found AudioClip : {scene.name}");
+            Debug.LogWarning($"Addressable is Not Found AudioClip : {sceneName}");
             return;
         }
 

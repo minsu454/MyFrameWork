@@ -18,10 +18,10 @@ public sealed class UIManager : MonoBehaviour, IInit
     /// <summary>
     /// 씬 로드 시 호출 될 이벤트 함수
     /// </summary>
-    private async UniTask OnSceneLoaded(Scene scene)
+    private async UniTask OnSceneLoaded(string sceneName)
     {
         Clear();
-        await CreateSceneUI(scene.name);
+        await CreateSceneUI(sceneName);
     }
 
     /// <summary>

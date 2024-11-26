@@ -1,4 +1,5 @@
 using Common.EnumExtensions;
+using Common.Path;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Common.SceneEx
         /// </summary>
         public static void LoadScene(SceneType type)
         {
-            SceneManager.LoadScene(type.EnumToString());
+            SceneManager.LoadScene(ScenePath.SceneName(type));
         }
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace Common.SceneEx
         public static void LoadingAndNextScene(SceneType nextSceneType)
         {
             nextScene = nextSceneType.EnumToString();
-            SceneManager.LoadScene("Loading");
+            SceneManager.LoadScene("Loading_Scene");
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Common.SceneEx
         /// </summary>
         public static AsyncOperation LoadNextSceneAsync()
         {
-            AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
+            AsyncOperation op = SceneManager.LoadSceneAsync(ScenePath.SceneName(nextScene));
             op.allowSceneActivation = false;
 
             return op;
