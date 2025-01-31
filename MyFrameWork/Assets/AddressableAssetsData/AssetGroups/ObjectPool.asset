@@ -16,13 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d0182249965d7d8438553c1d6cded3c9
-  m_SerializeEntries:
-  - m_GUID: 74e1c47bfd0ebe14eaa770aa9ef6fd3c
-    m_Address: Pool/InGame
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - InGame
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}
   m_SchemaSet:
