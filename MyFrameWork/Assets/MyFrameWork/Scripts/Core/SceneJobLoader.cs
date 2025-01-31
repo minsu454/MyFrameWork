@@ -1,8 +1,6 @@
-using Common.Assets;
 using Common.Objects;
 using Common.Path;
 using Common.StringEx;
-using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +30,10 @@ namespace Common.SceneEx
         private static void OnLoadCompleted(Scene scene, LoadSceneMode sceneMode)
         {
             if (!UseOnLoadCompleted)
+            {
+                completedList[LoadPriorityType.Sound]?.Invoke("");
                 return;
+            }
 
             string sceneName = scene.name.ToFirstName("_");
 

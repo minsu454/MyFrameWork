@@ -123,6 +123,7 @@ namespace Common.Pool
             for (int i = 0; i < preloadCount; i++)
             {
                 T component = CreateImpl();
+                component.gameObject.SetActive(false);
                 objectQueue.Enqueue(component);
             }
 

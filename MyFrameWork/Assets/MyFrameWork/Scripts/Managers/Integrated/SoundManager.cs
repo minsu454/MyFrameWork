@@ -1,14 +1,11 @@
-using Common.Assets;
 using Common.EnumExtensions;
 using Common.Objects;
 using Common.Path;
 using Common.Pool;
 using Common.SceneEx;
-using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using Scene = UnityEngine.SceneManagement.Scene;
 
 public sealed class SoundManager : MonoBehaviour, IInit
 {
@@ -17,13 +14,16 @@ public sealed class SoundManager : MonoBehaviour, IInit
     private AudioMixer audioMixer;
     private AudioSource bgmSource;
 
-    private const int SoundPlayerCount = 10;
+    private const int SoundPlayerCount = 20;
+
+    private AudioClip curSceneClip;
+    private float curSceneVolume;
 
     public void Init()
     {
         audioMixer = Resources.Load<AudioMixer>("Sound/AudioMixer");
 
-        CreateAudioSource(SoundType.BGM.ToString());
+        CreateAudioSource(SoundType.BGM.EnumToString());
         CreateSoundPool();
 
         SceneJobLoader.Add(LoadPriorityType.Sound, OnSceneLoaded);
@@ -39,15 +39,7 @@ public sealed class SoundManager : MonoBehaviour, IInit
     /// </summary>
     private void OnSceneLoaded(string sceneName)
     {
-        AudioClip clip = ObjectManager.Return<AudioClip>(AddressablePath.BGMPath(sceneName));
-
-        if (clip == null)
-        {
-            Debug.LogWarning($"Addressable is Not Found AudioClip : {sceneName}");
-            return;
-        }
-
-        bgmSource.clip = clip;
+        bgmSource.Stop();
     }
 
     /// <summary>
@@ -64,7 +56,7 @@ public sealed class SoundManager : MonoBehaviour, IInit
                 return;
             }
 
-            SetVolume(type, PlayerPrefs.GetFloat(name));
+            SetVolume(type, PlayerPrefs.GetFloat(name, 1));
         }
     }
 
@@ -87,6 +79,7 @@ public sealed class SoundManager : MonoBehaviour, IInit
 
         bgmSource.playOnAwake = false;
         bgmSource.loop = true;
+
     }
 
     /// <summary>
@@ -116,6 +109,49 @@ public sealed class SoundManager : MonoBehaviour, IInit
     }
 
     /// <summary>
+    /// BGM 플레이 함수
+    /// </summary>
+    public void BGMPlay(AudioClip clip, float volume)
+    {
+        bgmSource.volume = volume;
+
+        bgmSource.clip = clip;
+        bgmSource.Play();
+    }
+
+    /// <summary>
+    /// 처음 SceneBGM 플레이 함수
+    /// </summary>
+    public void FirstSceneBGMPlay(SceneType type, float volume)
+    {
+        bgmSource.volume = volume;
+        curSceneVolume = volume;
+        bgmSource.clip = ObjectManager.Return<AudioClip>(AddressablePath.BGMPath(type.EnumToString()));
+        curSceneClip = bgmSource.clip;
+
+        bgmSource.Play();
+    }
+
+    /// <summary>
+    /// 다시 SceneBGM 플레이 함수
+    /// </summary>
+    public void SceneBGMRePlay()
+    {
+        bgmSource.volume = curSceneVolume;
+        bgmSource.clip = curSceneClip;
+
+        bgmSource.Play();
+    }
+
+    /// <summary>
+    /// BGM 멈추는 함수
+    /// </summary>
+    public void BGMStop()
+    {
+        bgmSource.Stop();
+    }
+
+    /// <summary>
     /// 2D 플레이 함수(일반 플레이)
     /// </summary>
     public void SFX2DPlay(AudioClip clip)
@@ -123,18 +159,38 @@ public sealed class SoundManager : MonoBehaviour, IInit
         SoundPlayer soundPlayer = soundPool.GetObject();
         soundPlayer.SetDelay(clip.length);
         soundPlayer.SetSound2D();
+        soundPlayer.SetPitch(1);
+        soundPlayer.SetVolume(1);
         soundPlayer.gameObject.SetActive(true);
 
         soundPlayer.Play(clip);
     }
 
     /// <summary>
-    /// 3D 플레이 함수(원근감 사운드)
+    /// 2D 플레이 함수(일반 플레이)
+    /// </summary>
+    public void SFX2DPlay(AudioClip clip, float pitch)
+    {
+        SoundPlayer soundPlayer = soundPool.GetObject();
+        soundPlayer.SetDelay(clip.length);
+        soundPlayer.SetSound2D();
+        soundPlayer.SetPitch(pitch);
+        soundPlayer.SetVolume(1);
+        soundPlayer.gameObject.SetActive(true);
+
+        soundPlayer.Play(clip);
+    }
+
+    /// <summary>
+    /// 3D 플레이 함수(원근감 사운드 : 일반)
     /// </summary>
     public void SFX3DPlay(AudioClip clip, Transform playTr)
     {
         SoundPlayer soundPlayer = soundPool.GetObject();
         soundPlayer.SetDelay(clip.length);
+        soundPlayer.SetMaxDistance(15);
+        soundPlayer.SetPitch(1);
+        soundPlayer.SetVolume(1);
         soundPlayer.SetSound3D(playTr);
         soundPlayer.gameObject.SetActive(true);
 
@@ -142,11 +198,63 @@ public sealed class SoundManager : MonoBehaviour, IInit
     }
 
     /// <summary>
-    /// 
+    /// 3D 플레이 함수(원근감 사운드 : 볼륨 설정)
+    /// </summary>
+    public void SFX3DPlay(AudioClip clip, Transform playTr, float volume)
+    {
+        SoundPlayer soundPlayer = soundPool.GetObject();
+        soundPlayer.SetDelay(clip.length);
+        soundPlayer.SetMaxDistance(15);
+        soundPlayer.SetPitch(1);
+        soundPlayer.SetVolume(volume);
+        soundPlayer.SetSound3D(playTr);
+        soundPlayer.gameObject.SetActive(true);
+
+        soundPlayer.Play(clip);
+    }
+
+    /// <summary>
+    /// 3D 플레이 함수(원근감 사운드 : 피치 사용여부, 사운드 최대거리 설정 가능)
+    /// </summary>
+    public void SFX3DPlay(AudioClip clip, Transform playTr, bool usePitch, float maxDistance)
+    {
+        SoundPlayer soundPlayer = soundPool.GetObject();
+        soundPlayer.SetDelay(clip.length);
+        soundPlayer.SetMaxDistance(maxDistance);
+        soundPlayer.SetSound3D(playTr);
+
+        if (usePitch)
+            soundPlayer.SetRandomPitch();
+
+        soundPlayer.SetVolume(1);
+        soundPlayer.gameObject.SetActive(true);
+
+        soundPlayer.Play(clip);
+    }
+
+    /// <summary>
+    /// 3D 플레이 함수(원근감 사운드 : 피치 사용여부, 사운드 최대거리 설정 가능)
+    /// </summary>
+    public void SFX3DPlay(AudioClip clip, Transform playTr, float pitch, float maxDistance)
+    {
+        SoundPlayer soundPlayer = soundPool.GetObject();
+        soundPlayer.SetDelay(clip.length);
+        soundPlayer.SetMaxDistance(maxDistance);
+        soundPlayer.SetPitch(pitch);
+        soundPlayer.SetVolume(1);
+        soundPlayer.SetSound3D(playTr);
+
+        soundPlayer.gameObject.SetActive(true);
+
+        soundPlayer.Play(clip);
+    }
+
+
+    /// <summary>
+    /// 불륨 설정해주는 함수
     /// </summary>
     public void SetVolume(SoundType type, float volume)
     {
         audioMixer.SetFloat(type.EnumToString(), Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat(type.EnumToString(), volume);
     }
 }

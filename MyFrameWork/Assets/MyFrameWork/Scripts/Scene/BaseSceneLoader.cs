@@ -31,28 +31,6 @@ public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, IInit wh
         instance = this as T;
 
         InitScene();
-        Pooling();
-    }
-
-    /// <summary>
-    /// 지금 씬에서 사용할 오브젝트 풀링해주는 함수
-    /// </summary>
-    private void Pooling()
-    {
-        string sceneName = SceneManagerEx.NextScene;
-
-        ObjectPoolSO objectPoolSO = ObjectManager.Return<ObjectPoolSO>(AddressablePath.ObjectPoolSOPath(sceneName));
-
-        if (objectPoolSO == null)
-        {
-            Debug.LogWarning($"Addressable is Not Found ObjectPoolSO : {sceneName}");
-            return;
-        }
-
-        foreach (var item in objectPoolSO.poolDataList)
-        {
-            ObjectPoolContainer.Instance.CreateObjectPool(sceneName, item.Name, item.Count);
-        }
     }
 
     /// <summary>
@@ -65,6 +43,4 @@ public abstract class BaseSceneLoader<T> : MonoBehaviour, IAddressable, IInit wh
         instance = null;
         ReleaseEvent?.Invoke(gameObject);
     }
-
-
 }

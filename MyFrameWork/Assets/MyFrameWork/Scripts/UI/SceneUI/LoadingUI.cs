@@ -1,33 +1,32 @@
 using Common.Objects;
 using Common.SceneEx;
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingUI : BaseSceneUI
 {
     [SerializeField] private Image progressBar;
 
-    private void Start()
+    private async void Start()
     {
-        StartCoroutine(LoadSceneProcess());
+        await LoadSceneProcessAsync();
     }
 
-    IEnumerator LoadSceneProcess()
+    /// <summary>
+    /// 로딩 비동기 실행 함수
+    /// </summary>
+    private async UniTask LoadSceneProcessAsync()
     {
         progressBar.fillAmount = 0.0f;
 
+        await ObjectManager.Add(SceneManagerEx.NextScene);
         AsyncOperation op = SceneManagerEx.LoadNextSceneAsync();
-        
-        yield return ObjectManager.Add(SceneManagerEx.NextScene);
 
         float timer = 0f;
         while (!op.isDone)
         {
-            yield return null;
+            await UniTask.Yield(PlayerLoopTiming.Update);
 
             if (progressBar.fillAmount < 0.9f && op.progress == 0.9f)
             {
@@ -40,18 +39,10 @@ public class LoadingUI : BaseSceneUI
                 if (progressBar.fillAmount >= 1f)
                 {
                     op.allowSceneActivation = true;
-                    yield break;
+                    return;
                 }
             }
         }
     }
 
-    private async UniTask LoadSceneProcess1()
-    {
-        progressBar.fillAmount = 0.0f;
-
-        AsyncOperation op = SceneManagerEx.LoadNextSceneAsync();
-        
-        await ObjectManager.Add(SceneManagerEx.NextScene);
-    }
 }

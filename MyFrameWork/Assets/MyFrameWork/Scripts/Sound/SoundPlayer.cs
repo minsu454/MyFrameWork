@@ -24,6 +24,27 @@ public class SoundPlayer : MonoBehaviour, IObjectPoolable<SoundPlayer>
         this.delay = delay;
     }
 
+    public void SetVolume(float volume)
+    {
+        audioSource.volume = volume;
+    }
+
+    public void SetMaxDistance(float maxDistance)
+    {
+        audioSource.maxDistance = maxDistance;
+    }
+
+    public void SetRandomPitch()
+    {
+        float random = UnityEngine.Random.Range(-0.1f, 0.1f);
+        audioSource.pitch = 1 + random;
+    }
+
+    public void SetPitch(float amount)
+    {
+        audioSource.pitch = amount;
+    }
+
     /// <summary>
     /// 2D 사운드 설정 함수
     /// </summary>
