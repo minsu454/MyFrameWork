@@ -7,7 +7,7 @@ namespace Common.Objects
 {
     public static class ObjectManager
     {
-        private static readonly Dictionary<string, Object> objectContainerDict = new Dictionary<string, Object>();  //비동기 캐시해주는 Dictionary
+        private static readonly Dictionary<string, Object> _objectContainerDict = new();  //비동기 캐시해주는 Dictionary
 
         /// <summary>
         /// 비동기로 오브젝트 추가해주는 함수
@@ -49,12 +49,12 @@ namespace Common.Objects
 
             foreach (LoadData data in loaderSO.loadDataList)
             {
-                if (objectContainerDict.ContainsKey(data.path))
+                if (_objectContainerDict.ContainsKey(data.path))
                 {
                     continue;
                 }
 
-                objectContainerDict.Add(data.path, data.setObject);
+                _objectContainerDict.Add(data.path, data.setObject);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Common.Objects
         private static async UniTask LoadAndAddObjectAsync(string primaryKey)
         {
             Object obj = await AddressableAssets.LoadDataAsync<Object>(primaryKey);
-            objectContainerDict.Add(primaryKey, obj);
+            _objectContainerDict.Add(primaryKey, obj);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Common.Objects
         /// </summary>
         public static void Clear()
         {
-            objectContainerDict.Clear();
+            _objectContainerDict.Clear();
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Common.Objects
         /// </summary>
         public static T Return<T>(string path) where T : Object
         {
-            if (!objectContainerDict.TryGetValue(path, out Object value))
+            if (!_objectContainerDict.TryGetValue(path, out Object value))
             {
                 Debug.LogError($"Is Not Found Object : {path}");
                 return default(T);
@@ -101,7 +101,7 @@ namespace Common.Objects
         /// </summary>
         public static GameObject Instantiate(string path)
         {
-            if (!objectContainerDict.TryGetValue(path, out Object value))
+            if (!_objectContainerDict.TryGetValue(path, out Object value))
             {
                 Debug.LogError($"Is Not Found Object : {path}");
                 return null;
@@ -123,7 +123,7 @@ namespace Common.Objects
         /// </summary>
         public static GameObject Instantiate(string path, Transform parent)
         {
-            if (!objectContainerDict.TryGetValue(path, out Object value))
+            if (!_objectContainerDict.TryGetValue(path, out Object value))
             {
                 Debug.LogError($"Is Not Found Object : {path}");
                 return null;
