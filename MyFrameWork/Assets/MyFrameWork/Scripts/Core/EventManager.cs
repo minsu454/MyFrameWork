@@ -10,7 +10,7 @@ namespace Common.Event
     {
 
         //eventListener저장해주는 Dictionary
-        private static readonly Dictionary<GameEventType, List<EventListener>> eventListenerDict = new Dictionary<GameEventType, List<EventListener>>();
+        private static readonly Dictionary<GameEventType, List<EventListener>> eventListenerDict = new();
 
         /// <summary>
         /// 구독하는 함수
@@ -53,11 +53,11 @@ namespace Common.Event
                 return;
             }
 
-            foreach (var listener in list)
+            for (int i = list.Count - 1; i >= 0; i--)
             {
                 try
                 {
-                    listener.Invoke(arg);
+                    list[i].Invoke(arg);
                 }
                 catch (Exception e)
                 {
