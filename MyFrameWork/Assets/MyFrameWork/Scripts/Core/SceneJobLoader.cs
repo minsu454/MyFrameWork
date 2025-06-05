@@ -11,7 +11,7 @@ namespace Common.SceneEx
 {
     public static class SceneJobLoader
     {
-        public readonly static SortedList<LoadPriorityType, Action<string>> completedList = new();  //씬로드 되었을 때 호출순서 정렬 list
+        private readonly static SortedList<LoadPriorityType, Action<string>> _completedList = new();  //씬로드 되었을 때 호출순서 정렬 list
         public static bool UseOnLoadCompleted = false;
 
         /// <summary>
@@ -31,13 +31,13 @@ namespace Common.SceneEx
         {
             if (!UseOnLoadCompleted)
             {
-                completedList[LoadPriorityType.Sound]?.Invoke("");
+                _completedList[LoadPriorityType.Sound]?.Invoke("");
                 return;
             }
 
             string sceneName = scene.name.ToFirstName("_");
 
-            foreach (var item in completedList)
+            foreach (var item in _completedList)
             {
                 try
                 {
@@ -55,13 +55,13 @@ namespace Common.SceneEx
         /// </summary>
         public static void Add(LoadPriorityType type, Action<string> loadCompleted)
         {
-            if (completedList.ContainsKey(type))
+            if (_completedList.ContainsKey(type))
             {
                 Debug.LogWarning($"There is already an identical LoadCompleted event : {type}");
                 return;
             }
 
-            completedList.Add(type, loadCompleted);
+            _completedList.Add(type, loadCompleted);
         }
 
         /// <summary>
@@ -69,13 +69,13 @@ namespace Common.SceneEx
         /// </summary>
         public static bool Remove(LoadPriorityType type)
         {
-            if (completedList[type] == null)
+            if (_completedList[type] == null)
             {
                 Debug.LogError($"Is Not found competedList : {type}");
                 return false;
             }
 
-            completedList.Remove(type);
+            _completedList.Remove(type);
             return true;
         }
 
