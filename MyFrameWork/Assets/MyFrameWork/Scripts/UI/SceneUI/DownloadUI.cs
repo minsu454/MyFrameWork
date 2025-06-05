@@ -23,14 +23,14 @@ public class DownloadUI : BaseSceneUI
     private long patchSize;
     private readonly Dictionary<string, long> patchDict = new Dictionary<string, long>();
 
-    private async void Start()
-    {
-        waitGo.SetActive(true);
-        downGo.SetActive(false);
+    //private async void Start()
+    //{
+    //    waitGo.SetActive(true);
+    //    downGo.SetActive(false);
 
-        await AddressableAssets.Init();
-        await CheckUpdateFiles();
-    }
+    //    await AddressableAssets.Init();
+    //    await CheckUpdateFiles();
+    //}
 
     public async void DownLoadBtn()
     {

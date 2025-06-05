@@ -1,11 +1,8 @@
-using Common.Assets;
 using Common.Objects;
 using Common.Path;
 using Common.SceneEx;
-using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public sealed class UIManager : MonoBehaviour, IInit
 {
@@ -34,9 +31,9 @@ public sealed class UIManager : MonoBehaviour, IInit
 
         GameObject uiGo = Instantiate(prefab);
 
-        if (!prefab.TryGetComponent(out BaseSceneUI sceneUI))
+        if (!uiGo.TryGetComponent(out BaseSceneUI sceneUI))
         {
-            Debug.LogError($"GameObject Is Not BaseSceneUI Inheritance : {prefab}");
+            Debug.LogError($"GameObject Is Not BaseSceneUI Inheritance : {uiGo}");
             return;
         }
 
@@ -45,19 +42,15 @@ public sealed class UIManager : MonoBehaviour, IInit
     }
 
     /// <summary>
-    /// 씬 로드 시 해당 Scene에 메인 UI 배치 함수
+    /// 팝업 제작 함수
     /// </summary>
-    public async UniTask CreatePopup<T>(PopupOption option = null) where T : BasePopupUI
+    public void CreatePopup<T>(PopupOption option = null) where T : BasePopupUI
     {
-        GameObject prefab = await AddressableAssets.InstantiateAsync(AddressablePath.UIPath(typeof(T).Name));
+        GameObject prefab = ObjectManager.Return<GameObject>(AddressablePath.UIPath(typeof(T).Name));
 
-        if (prefab == null)
-        {
-            Debug.LogError($"Addressable is Not Found GameObject : {name}");
-            return;
-        }
+        GameObject uiGo = Instantiate(prefab);
 
-        if (!prefab.TryGetComponent(out T popupUI))
+        if (!uiGo.TryGetComponent(out T popupUI))
         {
             Debug.LogError($"GameObject Is Not BaseSceneUI Inheritance : {prefab}");
             return;
@@ -75,7 +68,6 @@ public sealed class UIManager : MonoBehaviour, IInit
         BasePopupUI popup = showList[showList.Count - 1];
         showList.RemoveAt(showList.Count - 1);
 
-        AddressableAssets.Release(popup.gameObject);
         Destroy(popup.gameObject);
     }
 
@@ -96,7 +88,6 @@ public sealed class UIManager : MonoBehaviour, IInit
 
         showList.RemoveAt(idx);
 
-        AddressableAssets.Release(popup.gameObject);
         Destroy(popup.gameObject);
     }
 
