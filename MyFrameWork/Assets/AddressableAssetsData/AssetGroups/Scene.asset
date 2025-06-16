@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: UI
+  m_Name: Scene
   m_EditorClassIdentifier: 
-  m_GroupName: UI
+  m_GroupName: Scene
   m_Data:
     m_SerializedData: []
-  m_GUID: 4a91a555a2b81a242bdb2ecc395a3411
+  m_GUID: 590ca8dc9c5281041822f934fc4279b6
   m_SerializeEntries:
-  - m_GUID: aca7fc01bae2d7e459dd9785dbbebde1
-    m_Address: UI/InGame_UI
+  - m_GUID: 9f52604e3eaa12042bcd9962a4a0aefa
+    m_Address: Scene/InGameLoader
     m_ReadOnly: 0
     m_SerializedLabels:
     - InGame
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 971af33e6b53eb24a847947537aac9f0
-    m_Address: UI/Title_UI
+  - m_GUID: 5d9c7fe25a189794486aeb5dd6c44118
+    m_Address: Scene/TitleLoader
     m_ReadOnly: 0
     m_SerializedLabels:
     - Title
@@ -33,4 +33,4 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 8335239d466807c4193a789cb773e9a2, type: 2}
+    - {fileID: 11400000, guid: d047de3f9a1723b498e7a8a33869d599, type: 2}

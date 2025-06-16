@@ -10,27 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: UI
+  m_Name: Sounds
   m_EditorClassIdentifier: 
-  m_GroupName: UI
+  m_GroupName: Sounds
   m_Data:
     m_SerializedData: []
-  m_GUID: 4a91a555a2b81a242bdb2ecc395a3411
+  m_GUID: 60c803ebb73b60a40a28f52be9c7ff12
   m_SerializeEntries:
-  - m_GUID: aca7fc01bae2d7e459dd9785dbbebde1
-    m_Address: UI/InGame_UI
+  - m_GUID: 49bf60f69085e8d4db744ea49f85199b
+    m_Address: Sounds/BGM/InGame
     m_ReadOnly: 0
     m_SerializedLabels:
     - InGame
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 971af33e6b53eb24a847947537aac9f0
-    m_Address: UI/Title_UI
+  - m_GUID: 1ac799fc1ce0f16458620d95a84989d8
+    m_Address: Sounds/BGM/Title
     m_ReadOnly: 0
     m_SerializedLabels:
     - Title
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a05f1a154bc05114b9c43ff02a302760
+    m_Address: Sounds/SFX/UIButton
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Common
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8d53e569ee1c80d41b8faf3395611543, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 8335239d466807c4193a789cb773e9a2, type: 2}
+    - {fileID: 11400000, guid: 60c994ca1e96e5c41a9fd01aee8a32d1, type: 2}
