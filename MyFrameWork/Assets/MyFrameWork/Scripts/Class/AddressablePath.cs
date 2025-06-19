@@ -31,14 +31,6 @@ namespace Common.Path
         }
 
         /// <summary>
-        /// ObjectPool 경로 반환 함수
-        /// </summary>
-        public static string ObjectPoolPath(string sceneName, string name)
-        {
-            return $"Pool/{sceneName}/{name}.prefab";
-        }
-
-        /// <summary>
         /// BGM 경로 반환 함수
         /// </summary>
         public static string BGMPath(string name)

@@ -9,6 +9,11 @@ namespace Common.Objects
     {
         private static readonly Dictionary<string, Object> _objectContainerDict = new();  //비동기 캐시해주는 Dictionary
 
+        public static void Init()
+        {
+            //Resources.Load();
+        }
+
         /// <summary>
         /// 비동기로 오브젝트 추가해주는 함수
         /// </summary>
@@ -44,18 +49,6 @@ namespace Common.Objects
         /// </summary>
         private static async UniTask ResourcesAsync(string label)
         {
-            await UniTask.CompletedTask;
-            ResourcesLoaderSO loaderSO = Resources.Load<ResourcesLoaderSO>($"Loader/{label}LoadSO");
-
-            foreach (LoadData data in loaderSO.loadDataList)
-            {
-                if (_objectContainerDict.ContainsKey(data.path))
-                {
-                    continue;
-                }
-
-                _objectContainerDict.Add(data.path, data.setObject);
-            }
         }
 
 
