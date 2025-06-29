@@ -23,6 +23,9 @@ public class FileTreeView : TreeView
     {
         rootFolder = rootFolderPath;
         Reload();
+
+        foreach (var item in GetRows())
+            SetExpandedRecursive(item.id, true);
     }
 
     /// <summary>
