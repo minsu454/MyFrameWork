@@ -33,6 +33,17 @@ namespace Common.ResourcesToAddressablesConverter
 
             serializedObject.ApplyModifiedProperties();
             Repaint();
+
+            GUILayout.Space(30);
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Resources Converter", customSkin.button)) { ResourcesConverter(); }
+            if (GUILayout.Button("Addressables Converter", customSkin.button)) { AddressablesConverter(); }
+
+            GUILayout.EndHorizontal();
         }
+
+        private void ResourcesConverter() { global::ResourcesToAddressablesConverter.ResourcesConverterWindow(); }
+        private void AddressablesConverter() { global::ResourcesToAddressablesConverter.AddressablesConverterWindow(); }
     }
 }
