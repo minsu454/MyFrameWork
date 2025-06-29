@@ -30,6 +30,9 @@ namespace Common.ResourcesToAddressablesConverter
 
             var useAddressables = serializedObject.FindProperty("UseAddressables");
             useAddressables.boolValue = EditorHandler.DrawToggle(useAddressables.boolValue, customSkin, "Use Addressables");
+
+            serializedObject.ApplyModifiedProperties();
+            Repaint();
         }
     }
 }

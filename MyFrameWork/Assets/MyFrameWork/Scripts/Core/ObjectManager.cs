@@ -1,4 +1,5 @@
 using Common.Assets;
+using Common.ResourcesToAddressablesConverter;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,14 @@ namespace Common.Objects
     public static class ObjectManager
     {
         private static readonly Dictionary<string, Object> _objectContainerDict = new();  //비동기 캐시해주는 Dictionary
+        private static ConverterManager converterManager;
 
         public static void Init()
         {
-            //Resources.Load();
+            converterManager = Resources.Load<ConverterManager>("Converter Manager");
+
+            if (converterManager.UseResources)
+                Debug.Log("In");
         }
 
         /// <summary>
@@ -19,7 +24,8 @@ namespace Common.Objects
         /// </summary>
         public static async UniTask Add(string label)
         {
-            await AddressableAsync(label);
+            if (converterManager.UseAddressables)
+                await AddressableAsync(label);
         }
 
         /// <summary>

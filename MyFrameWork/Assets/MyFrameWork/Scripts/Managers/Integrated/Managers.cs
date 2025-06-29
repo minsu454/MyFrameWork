@@ -1,6 +1,5 @@
+using Common.Objects;
 using Common.SceneEx;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class Managers : MonoBehaviour
@@ -20,6 +19,8 @@ public sealed class Managers : MonoBehaviour
         instance = go.AddComponent<Managers>();
 
         DontDestroyOnLoad(go);
+
+        ObjectManager.Init();
 
         instance.uiManager = CreateManager<UIManager>(go.transform);
         instance.soundManager = CreateManager<SoundManager>(go.transform);
