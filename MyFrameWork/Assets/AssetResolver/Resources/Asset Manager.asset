@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8623ad8b92eba964f94ea3784f96f1ca, type: 3}
-  m_Name: Converter Manager
+  m_Script: {fileID: 11500000, guid: 920a4e2760d420c40b10772695b93e4c, type: 3}
+  m_Name: Asset Manager
   m_EditorClassIdentifier: 
   UseResources: 1
   UseAddressables: 1
+  resourcesPathList:
+  - Assets/Resources/Auto/Built In
+  - Assets/Resources/Auto/Built In/AudioMixer.mixer
+  - Assets/Resources/Auto/Built In/SoundPlayer.prefab

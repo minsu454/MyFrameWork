@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common.Path
+namespace Common.ReturnPath
 {
     public static class AddressablePath
     {
@@ -11,7 +11,7 @@ namespace Common.Path
         /// </summary>
         public static string LoaderPath(string name)
         {
-            return $"Loader/{name}";
+            return $"Loader/{name}Loader";
         }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace Common.Path
         /// </summary>
         public static string UIPath(string name)
         {
-            return $"UI/{name}";
+            return $"UI/{name}_UI";
         }
 
         /// <summary>

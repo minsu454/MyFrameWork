@@ -1,11 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Common.ResourcesToAddressablesConverter
+namespace Common.AssetResolver
 {
-    [CustomEditor(typeof(ConverterManager))]
+    [CustomEditor(typeof(AssetManager))]
     [System.Serializable]
-    public class ResourcesToAddressablesConverterEditor : Editor
+    public class AssetResolverEditor : Editor
     {
         GUISkin customSkin;
 
@@ -34,7 +34,16 @@ namespace Common.ResourcesToAddressablesConverter
             serializedObject.ApplyModifiedProperties();
             Repaint();
 
-            GUILayout.Space(30);
+            GUILayout.Space(10);
+
+            EditorGUI.BeginDisabledGroup(true);
+            var ResourcesPathList = serializedObject.FindProperty("ResourcesPathList");
+            EditorGUILayout.PropertyField(ResourcesPathList, true);
+            EditorGUI.EndDisabledGroup();
+
+            if (GUILayout.Button("Set Resources Path", customSkin.button)) { SetResourcesPath(); serializedObject.ApplyModifiedProperties(); Repaint(); }
+
+            GUILayout.Space(10);
             GUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Resources Converter", customSkin.button)) { ResourcesConverter(); }
@@ -43,7 +52,9 @@ namespace Common.ResourcesToAddressablesConverter
             GUILayout.EndHorizontal();
         }
 
-        private void ResourcesConverter() { global::ResourcesToAddressablesConverter.ResourcesConverterWindow(); }
-        private void AddressablesConverter() { global::ResourcesToAddressablesConverter.AddressablesConverterWindow(); }
+        private void SetResourcesPath() { AssetResolver.SetAutoResourcesPath(); }
+
+        private void ResourcesConverter() { AssetResolverWindow.ResourcesConverterWindow(); }
+        private void AddressablesConverter() { AssetResolverWindow.AddressablesConverterWindow(); }
     }
 }

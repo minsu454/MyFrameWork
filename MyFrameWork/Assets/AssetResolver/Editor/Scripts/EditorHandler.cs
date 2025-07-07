@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Common.ResourcesToAddressablesConverter
+namespace Common.AssetResolver
 {
     public class EditorHandler : Editor
     {
@@ -16,7 +16,6 @@ namespace Common.ResourcesToAddressablesConverter
             GUILayout.BeginHorizontal(EditorStyles.helpBox);
 
             value = GUILayout.Toggle(value, new GUIContent(content), skin.FindStyle("Toggle"));
-            //value = GUILayout.Toggle(value, new GUIContent(""), skin.FindStyle("Toggle Helper"));
 
             GUILayout.EndHorizontal();
             return value;

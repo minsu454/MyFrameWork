@@ -1,22 +1,23 @@
 using Common.Assets;
-using Common.ResourcesToAddressablesConverter;
+using Common.AssetResolver;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Common.Objects
 {
     public static class ObjectManager
     {
         private static readonly Dictionary<string, Object> _objectContainerDict = new();  //비동기 캐시해주는 Dictionary
-        private static ConverterManager converterManager;
+        private static AssetManager assetManager;
 
         public static void Init()
         {
-            converterManager = Resources.Load<ConverterManager>("Converter Manager");
+            assetManager = Resources.Load<AssetManager>("Asset Manager");
 
-            if (converterManager.UseResources)
-                Debug.Log("In");
+            if (assetManager.UseResources)
+                ResourcesLoad();
         }
 
         /// <summary>
@@ -24,14 +25,14 @@ namespace Common.Objects
         /// </summary>
         public static async UniTask Add(string label)
         {
-            if (converterManager.UseAddressables)
-                await AddressableAsync(label);
+            if (assetManager.UseAddressables)
+                await AddressableLoadAsync(label);
         }
 
         /// <summary>
         /// Addressable에서 로드해주는 함수
         /// </summary>
-        private static async UniTask AddressableAsync(string label)
+        private static async UniTask AddressableLoadAsync(string label)
         {
             var list = await AddressableAssets.LoadDataWithLabelAsync(label);
 
@@ -41,7 +42,7 @@ namespace Common.Objects
             {
                 foreach (var item in list)
                 {
-                    taskList.Add(LoadAndAddObjectAsync(item.PrimaryKey));
+                    taskList.Add(AddAddressableObjectAsync(item.PrimaryKey));
                 }
                 await UniTask.WhenAll(taskList);
             }
@@ -53,18 +54,24 @@ namespace Common.Objects
         /// <summary>
         /// Resources에서 로드해주는 함수
         /// </summary>
-        private static async UniTask ResourcesAsync(string label)
+        private static void ResourcesLoad()
         {
-        }
+            var list = assetManager.ResourcesPathList;
 
+            foreach (string path in list)
+            {
+                Object obj = Resources.Load($"Auto/{path}");
+                _objectContainerDict.Add(path, obj);
+            }
+        }
 
         /// <summary>
         /// 개별 오브젝트를 비동기로 로드하고 딕셔너리에 추가하는 함수
         /// </summary>
-        private static async UniTask LoadAndAddObjectAsync(string primaryKey)
+        private static async UniTask AddAddressableObjectAsync(string path)
         {
-            Object obj = await AddressableAssets.LoadDataAsync<Object>(primaryKey);
-            _objectContainerDict.Add(primaryKey, obj);
+            Object obj = await AddressableAssets.LoadDataAsync<Object>(path);
+            _objectContainerDict.Add(path, obj);
         }
 
         /// <summary>

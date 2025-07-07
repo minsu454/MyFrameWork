@@ -1,6 +1,6 @@
 using Common.EnumExtensions;
 using Common.Objects;
-using Common.Path;
+using Common.ReturnPath;
 using Common.Pool;
 using Common.SceneEx;
 using System;
@@ -21,7 +21,7 @@ public sealed class SoundManager : MonoBehaviour, IInit
 
     public void Init()
     {
-        audioMixer = Resources.Load<AudioMixer>("Sound/AudioMixer");
+        audioMixer = ObjectManager.Return<AudioMixer>("Built In/AudioMixer");
 
         CreateAudioSource(SoundType.BGM.EnumToString());
         CreateSoundPool();
@@ -87,7 +87,7 @@ public sealed class SoundManager : MonoBehaviour, IInit
     /// </summary>
     private void CreateSoundPool()
     {
-        GameObject prefab = Resources.Load<GameObject>("Sound/SoundPlayer");
+        GameObject prefab = ObjectManager.Return<GameObject>("Built In/SoundPlayer");
         soundPool = new ObjectPool<SoundPlayer>(prefab.name, prefab, transform, SoundPlayerCount);
     }
 
